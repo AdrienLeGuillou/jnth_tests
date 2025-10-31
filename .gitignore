@@ -1,0 +1,13 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.DS_Store
+.jpeg
+.rda
+.html
+data/intermediate
+data/run
+data/output
+renv/
+workflows/
