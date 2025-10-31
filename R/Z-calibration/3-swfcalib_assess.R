@@ -130,4 +130,3 @@ plot(mod)
 
 loss_fun <- function(par, t)  abs(predict(mod, data.frame(ugc.prob = par)) - t)
 optimize(interval = c(0.24, 0.3), f = loss_fun, t = 12.81)
-

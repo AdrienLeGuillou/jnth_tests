@@ -35,14 +35,21 @@ wf <- make_em_workflow("calibration_1", override = TRUE)
 
 # Define calibration scenarios
 # insert test values here
-n_scenarios <- 2
+n_scenarios <- 10
+rrs <- c(0.5, 1, 2)
+rrs1 <- rep(rrs, each = 3)
+rrs2 <- rep(rrs, 3)
 scenarios_df <- tibble(
-  .scenario.id = as.character(seq_len(n_scenarios)),
+  # .scenario.id = as.character(seq_len(n_scenarios)),
+  .scenario.id = paste0("hiv_", rrs1, "__prep_", rrs2),
   .at = 1,
-  ugc.prob = seq(0.3225, 0.3275, length.out = n_scenarios), # best 0.325
-  rgc.prob = plogis(qlogis(ugc.prob) + log(1.25)),
-  uct.prob = seq(0.29, 0.294, length.out = n_scenarios), # best 0.291
-  rct.prob = plogis(qlogis(uct.prob) + log(1.25))
+  substance.effects = 0,
+  hiv.test.rate_1 = param$hiv.test.rate[1] * rrs1,
+  hiv.test.rate_2 = param$hiv.test.rate[2] * rrs1,
+  hiv.test.rate_3 = param$hiv.test.rate[3] * rrs1,
+  prep.start.rate_1 = param$prep.start.rate[1] * rrs2,
+  prep.start.rate_2 = param$prep.start.rate[2] * rrs2,
+  prep.start.rate_3 = param$prep.start.rate[3] * rrs2,
 )
 scenarios_list <- EpiModel::create_scenario_list(scenarios_df)
 
@@ -50,7 +57,7 @@ wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_netsim_scenarios(
     path_to_est, param, init, control,
-    scenarios_list = NULL,
+    scenarios_list = scenarios_list,
     output_dir = calib_dir,
     n_rep = 128,
     n_cores = max_cores,
