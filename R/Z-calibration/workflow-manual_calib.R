@@ -50,7 +50,7 @@ wf <- add_workflow_step(
   wf_summary = wf,
   step_tmpl = step_tmpl_netsim_scenarios(
     path_to_est, param, init, control,
-    scenarios_list = scenarios_list,
+    scenarios_list = NULL,
     output_dir = calib_dir,
     n_rep = 128,
     n_cores = max_cores,
