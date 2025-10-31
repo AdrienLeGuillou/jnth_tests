@@ -28,5 +28,5 @@ init <- init_msm(
   prev.gono.uret  = 0.1,
   prev.chla.rect  = 0.1,
   prev.chla.uret  = 0.1,
-  prev.syph       = 0.1
+  prev.syph       = 0
 )
